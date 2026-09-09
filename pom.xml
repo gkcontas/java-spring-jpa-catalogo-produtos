@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.gustavo</groupId>
-    <artifactId>catalogo-produtos</artifactId>
+    <artifactId>product-catalog</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>catalogo-produtos</name>
-    <description>Catálogo de Produtos - API REST com Spring Boot, JPA/Hibernate, PostgreSQL e Flyway</description>
+    <name>product-catalog</name>
+    <description>Product Catalog - REST API built with Spring Boot, JPA/Hibernate, PostgreSQL and Flyway</description>
 
     <properties>
         <java.version>17</java.version>
