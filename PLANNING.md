@@ -64,6 +64,12 @@ Migrations do Flyway aplicadas automaticamente no startup (`classpath:db/migrati
 7. README final com instruções de execução e exemplos de request
 8. (Opcional) GitHub Actions: build + testes no push
 
+## Estratégia de commits
+
+Cada etapa do roadmap acima deve gerar um ou mais commits pequenos e independentes, feitos à medida que a etapa é concluída — nunca um único commit grande ao final. Ordem sugerida (ajustável conforme o que for implementado primeiro): setup do projeto → schema/migrations (quando aplicável) → modelo de domínio → repositórios/DTOs → camada de service → camada de API (controllers/endpoints/handlers) → testes unitários → testes de integração (e E2E quando aplicável) → infraestrutura local e documentação (docker-compose, README).
+
+Mensagens de commit seguem Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`), descrevendo a etapa concluída. Cada commit deve deixar o projeto compilando.
+
 ## Critérios de "pronto" para portfólio
 
 - README com instruções claras de setup (`docker-compose up`, `mvn spring-boot:run`)
