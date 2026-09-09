@@ -5,9 +5,9 @@ spring:
   application:
     name: catalogo-produtos
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalogo
-    username: catalogo
-    password: catalogo
+    url: jdbc:postgresql://localhost:5432/catalog
+    username: catalog
+    password: catalog
   jpa:
     open-in-view: false
     hibernate:
