@@ -1,4 +1,4 @@
-package com.gustavo.catalogo.integration;
+package com.gustavo.catalog.integration;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -8,13 +8,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gustavo.catalogo.dto.CategoriaRequest;
+import com.gustavo.catalog.dto.CategoryRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-class CategoriaControllerIntegrationTest extends IntegrationTestBase {
+class CategoryControllerIntegrationTest extends IntegrationTestBase {
 
     @Autowired
     private MockMvc mockMvc;
@@ -23,40 +23,40 @@ class CategoriaControllerIntegrationTest extends IntegrationTestBase {
     private ObjectMapper objectMapper;
 
     @Test
-    void deveCriarListarEExcluirCategoria() throws Exception {
-        CategoriaRequest request = new CategoriaRequest("Informática", "Produtos de informática");
+    void shouldCreateListAndDeleteCategory() throws Exception {
+        CategoryRequest request = new CategoryRequest("Computing", "Computing products");
 
-        String resposta = mockMvc.perform(post("/categorias")
+        String response = mockMvc.perform(post("/categories")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome", is("Informática")))
+                .andExpect(jsonPath("$.name", is("Computing")))
                 .andReturn().getResponse().getContentAsString();
 
-        Long id = objectMapper.readTree(resposta).get("id").asLong();
+        Long id = objectMapper.readTree(response).get("id").asLong();
 
-        mockMvc.perform(get("/categorias"))
+        mockMvc.perform(get("/categories"))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/categorias/{id}", id))
+        mockMvc.perform(get("/categories/{id}", id))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is("Informática")));
+                .andExpect(jsonPath("$.name", is("Computing")));
 
-        mockMvc.perform(delete("/categorias/{id}", id))
+        mockMvc.perform(delete("/categories/{id}", id))
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get("/categorias/{id}", id))
+        mockMvc.perform(get("/categories/{id}", id))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void deveRetornarBadRequestParaNomeEmBranco() throws Exception {
-        CategoriaRequest request = new CategoriaRequest("", null);
+    void shouldReturnBadRequestForBlankName() throws Exception {
+        CategoryRequest request = new CategoryRequest("", null);
 
-        mockMvc.perform(post("/categorias")
+        mockMvc.perform(post("/categories")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.camposInvalidos.nome").exists());
+                .andExpect(jsonPath("$.fieldErrors.name").exists());
     }
 }

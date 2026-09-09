@@ -1,4 +1,4 @@
-package com.gustavo.catalogo.integration;
+package com.gustavo.catalog.integration;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
