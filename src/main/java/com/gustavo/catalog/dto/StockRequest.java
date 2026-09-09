@@ -1,0 +1,12 @@
+package com.gustavo.catalog.dto;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+public record StockRequest(
+
+        @NotNull(message = "quantity is required")
+        @Positive(message = "quantity must be greater than zero")
+        Integer quantity
+) {
+}

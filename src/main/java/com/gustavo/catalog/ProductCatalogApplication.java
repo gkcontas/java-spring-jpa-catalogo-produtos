@@ -1,12 +1,12 @@
-package com.gustavo.catalogo;
+package com.gustavo.catalog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CatalogoProdutosApplication {
+public class ProductCatalogApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CatalogoProdutosApplication.class, args);
+        SpringApplication.run(ProductCatalogApplication.class, args);
     }
 }
