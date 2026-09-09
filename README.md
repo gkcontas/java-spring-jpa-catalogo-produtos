@@ -37,43 +37,43 @@ Os testes de integração usam Testcontainers e sobem um PostgreSQL real em cont
 
 ## Endpoints principais
 
-### Categorias
+### Categorias (`/categories`)
 
-| Método | Rota              | Descrição              |
-|--------|-------------------|-------------------------|
-| GET    | `/categorias`     | Lista todas as categorias |
-| GET    | `/categorias/{id}`| Busca categoria por id  |
-| POST   | `/categorias`     | Cria categoria          |
-| PUT    | `/categorias/{id}`| Atualiza categoria      |
-| DELETE | `/categorias/{id}`| Remove categoria        |
+| Método | Rota             | Descrição              |
+|--------|------------------|-------------------------|
+| GET    | `/categories`    | Lista todas as categorias |
+| GET    | `/categories/{id}`| Busca categoria por id |
+| POST   | `/categories`    | Cria categoria          |
+| PUT    | `/categories/{id}`| Atualiza categoria     |
+| DELETE | `/categories/{id}`| Remove categoria       |
 
-### Produtos
+### Produtos (`/products`)
 
-| Método | Rota                            | Descrição                              |
-|--------|----------------------------------|-----------------------------------------|
-| GET    | `/produtos?categoriaId=&page=&size=` | Lista produtos paginados, com filtro opcional por categoria |
-| GET    | `/produtos/{id}`                | Busca produto por id                    |
-| POST   | `/produtos`                     | Cria produto                            |
-| PUT    | `/produtos/{id}`                | Atualiza produto                        |
-| DELETE | `/produtos/{id}`                | Remove produto                          |
-| POST   | `/produtos/{id}/estoque/entrada`| Adiciona quantidade ao estoque          |
-| POST   | `/produtos/{id}/estoque/saida`  | Remove quantidade do estoque (422 se insuficiente) |
+| Método | Rota                          | Descrição                              |
+|--------|--------------------------------|-----------------------------------------|
+| GET    | `/products?categoryId=&page=&size=` | Lista produtos paginados, com filtro opcional por categoria |
+| GET    | `/products/{id}`              | Busca produto por id                    |
+| POST   | `/products`                   | Cria produto                            |
+| PUT    | `/products/{id}`              | Atualiza produto                        |
+| DELETE | `/products/{id}`              | Remove produto                          |
+| POST   | `/products/{id}/stock/increase`| Adiciona quantidade ao estoque         |
+| POST   | `/products/{id}/stock/decrease`| Remove quantidade do estoque (422 se insuficiente) |
 
 ## Exemplo de uso
 
 ```bash
 # Criar categoria
-curl -s -X POST localhost:8080/categorias \
+curl -s -X POST localhost:8080/categories \
   -H "Content-Type: application/json" \
-  -d '{"nome": "Informática", "descricao": "Produtos de informática"}'
+  -d '{"name": "Computing", "description": "Computing products"}'
 
-# Criar produto (categoriaId retornado acima)
-curl -s -X POST localhost:8080/produtos \
+# Criar produto (categoryId retornado acima)
+curl -s -X POST localhost:8080/products \
   -H "Content-Type: application/json" \
-  -d '{"nome": "Mouse", "descricao": "Mouse sem fio", "preco": 99.90, "quantidadeEstoqueInicial": 10, "categoriaId": 1}'
+  -d '{"name": "Mouse", "description": "Wireless mouse", "price": 99.90, "initialStockQuantity": 10, "categoryId": 1}'
 
 # Dar entrada em estoque
-curl -s -X POST localhost:8080/produtos/1/estoque/entrada \
+curl -s -X POST localhost:8080/products/1/stock/increase \
   -H "Content-Type: application/json" \
-  -d '{"quantidade": 5}'
+  -d '{"quantity": 5}'
 ```

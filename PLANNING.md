@@ -7,8 +7,8 @@ Demonstrar o uso "básico e correto" de Spring Data JPA/Hibernate sobre PostgreS
 ## Escopo do MVP
 
 Incluído:
-- CRUD de `Categoria` e `Produto` (produto pertence a uma categoria)
-- Controle simples de estoque (quantidade em `Produto`, endpoint de entrada/saída de estoque)
+- CRUD de `Category` e `Product` (produto pertence a uma categoria)
+- Controle simples de estoque (quantidade em `Product`, endpoint de entrada/saída de estoque)
 - Validação de payloads (Bean Validation)
 - Paginação e ordenação na listagem de produtos
 - Tratamento de erros padronizado (`@ControllerAdvice`)
@@ -38,14 +38,14 @@ Migrations do Flyway aplicadas automaticamente no startup (`classpath:db/migrati
 
 ## Modelo de dados
 
-- `categoria (id, nome, descricao)`
-- `produto (id, nome, descricao, preco, quantidade_estoque, categoria_id FK)`
+- `category (id, name, description)`
+- `product (id, name, description, price, stock_quantity, category_id FK)`
 
 ## Endpoints principais
 
-- `POST /categorias`, `GET /categorias`, `GET /categorias/{id}`, `PUT /categorias/{id}`, `DELETE /categorias/{id}`
-- `POST /produtos`, `GET /produtos` (paginado, filtro por categoria), `GET /produtos/{id}`, `PUT /produtos/{id}`, `DELETE /produtos/{id}`
-- `POST /produtos/{id}/estoque/entrada`, `POST /produtos/{id}/estoque/saida`
+- `POST /categories`, `GET /categories`, `GET /categories/{id}`, `PUT /categories/{id}`, `DELETE /categories/{id}`
+- `POST /products`, `GET /products` (paginado, filtro por categoria), `GET /products/{id}`, `PUT /products/{id}`, `DELETE /products/{id}`
+- `POST /products/{id}/stock/increase`, `POST /products/{id}/stock/decrease`
 
 ## Estratégia de testes
 
@@ -57,12 +57,16 @@ Migrations do Flyway aplicadas automaticamente no startup (`classpath:db/migrati
 
 1. Setup do projeto (Spring Initializr: Web, JPA, Validation, Flyway, PostgreSQL driver, Testcontainers)
 2. Modelo de dados + primeira migration Flyway
-3. Endpoints CRUD de `Categoria`
-4. Endpoints CRUD de `Produto` + regras de estoque
+3. Endpoints CRUD de `Category`
+4. Endpoints CRUD de `Product` + regras de estoque
 5. Testes de integração com Testcontainers
 6. `docker-compose.yml` com Postgres para rodar localmente
 7. README final com instruções de execução e exemplos de request
 8. (Opcional) GitHub Actions: build + testes no push
+
+## Convenção de nomenclatura
+
+Todo o código deve ser escrito em inglês: classes, arquivos, métodos, campos/variáveis, pacotes, rotas REST, payloads JSON de request/response, mensagens de validação/erro retornadas pela API, e nomes de tabelas/colunas nas migrations. Seguir as convenções idiomáticas Java (PascalCase para classes, camelCase para métodos/campos, snake_case para colunas SQL). A documentação do projeto (este `PLANNING.md` e o `README.md`) permanece em português.
 
 ## Estratégia de commits
 
