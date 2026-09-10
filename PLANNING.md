@@ -68,6 +68,8 @@ Migrations do Flyway aplicadas automaticamente no startup (`classpath:db/migrati
 
 Todo o código deve ser escrito em inglês: classes, arquivos, métodos, campos/variáveis, pacotes, rotas REST, payloads JSON de request/response, mensagens de validação/erro retornadas pela API, e nomes de tabelas/colunas nas migrations. Seguir as convenções idiomáticas Java (PascalCase para classes, camelCase para métodos/campos, snake_case para colunas SQL). A documentação do projeto (este `PLANNING.md` e o `README.md`) permanece em português.
 
+Pacote base: `com.gkcontas` (ex.: `com.gkcontas.<domínio-do-projeto>`), refletido também no `groupId` do `pom.xml`.
+
 ## Estratégia de commits
 
 Cada etapa do roadmap acima deve gerar um ou mais commits pequenos e independentes, feitos à medida que a etapa é concluída — nunca um único commit grande ao final. Ordem sugerida (ajustável conforme o que for implementado primeiro): setup do projeto → schema/migrations (quando aplicável) → modelo de domínio → repositórios/DTOs → camada de service → camada de API (controllers/endpoints/handlers) → testes unitários → testes de integração (e E2E quando aplicável) → infraestrutura local e documentação (docker-compose, README).
