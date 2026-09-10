@@ -1,10 +1,10 @@
-package com.gustavo.catalog.service;
+package com.gkcontas.catalog.service;
 
-import com.gustavo.catalog.dto.CategoryRequest;
-import com.gustavo.catalog.dto.CategoryResponse;
-import com.gustavo.catalog.exception.ResourceNotFoundException;
-import com.gustavo.catalog.model.Category;
-import com.gustavo.catalog.repository.CategoryRepository;
+import com.gkcontas.catalog.dto.CategoryRequest;
+import com.gkcontas.catalog.dto.CategoryResponse;
+import com.gkcontas.catalog.exception.ResourceNotFoundException;
+import com.gkcontas.catalog.model.Category;
+import com.gkcontas.catalog.repository.CategoryRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

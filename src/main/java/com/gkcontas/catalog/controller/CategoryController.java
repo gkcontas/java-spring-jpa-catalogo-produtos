@@ -1,8 +1,8 @@
-package com.gustavo.catalog.controller;
+package com.gkcontas.catalog.controller;
 
-import com.gustavo.catalog.dto.CategoryRequest;
-import com.gustavo.catalog.dto.CategoryResponse;
-import com.gustavo.catalog.service.CategoryService;
+import com.gkcontas.catalog.dto.CategoryRequest;
+import com.gkcontas.catalog.dto.CategoryResponse;
+import com.gkcontas.catalog.service.CategoryService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;

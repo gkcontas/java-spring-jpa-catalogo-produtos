@@ -1,12 +1,12 @@
-package com.gustavo.catalog.service;
+package com.gkcontas.catalog.service;
 
-import com.gustavo.catalog.dto.ProductRequest;
-import com.gustavo.catalog.dto.ProductResponse;
-import com.gustavo.catalog.dto.StockRequest;
-import com.gustavo.catalog.exception.ResourceNotFoundException;
-import com.gustavo.catalog.model.Category;
-import com.gustavo.catalog.model.Product;
-import com.gustavo.catalog.repository.ProductRepository;
+import com.gkcontas.catalog.dto.ProductRequest;
+import com.gkcontas.catalog.dto.ProductResponse;
+import com.gkcontas.catalog.dto.StockRequest;
+import com.gkcontas.catalog.exception.ResourceNotFoundException;
+import com.gkcontas.catalog.model.Category;
+import com.gkcontas.catalog.model.Product;
+import com.gkcontas.catalog.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

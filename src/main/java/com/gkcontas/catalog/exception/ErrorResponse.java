@@ -1,4 +1,4 @@
-package com.gustavo.catalog.exception;
+package com.gkcontas.catalog.exception;
 
 import java.time.Instant;
 import java.util.Map;

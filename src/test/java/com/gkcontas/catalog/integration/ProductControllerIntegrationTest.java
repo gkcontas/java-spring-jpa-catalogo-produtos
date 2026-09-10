@@ -1,4 +1,4 @@
-package com.gustavo.catalog.integration;
+package com.gkcontas.catalog.integration;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -6,9 +6,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gustavo.catalog.dto.CategoryRequest;
-import com.gustavo.catalog.dto.ProductRequest;
-import com.gustavo.catalog.dto.StockRequest;
+import com.gkcontas.catalog.dto.CategoryRequest;
+import com.gkcontas.catalog.dto.ProductRequest;
+import com.gkcontas.catalog.dto.StockRequest;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.gustavo.catalog.model;
+package com.gkcontas.catalog.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.gustavo.catalog.repository;
+package com.gkcontas.catalog.repository;
 
-import com.gustavo.catalog.model.Category;
+import com.gkcontas.catalog.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {

@@ -1,9 +1,9 @@
-package com.gustavo.catalog.controller;
+package com.gkcontas.catalog.controller;
 
-import com.gustavo.catalog.dto.ProductRequest;
-import com.gustavo.catalog.dto.ProductResponse;
-import com.gustavo.catalog.dto.StockRequest;
-import com.gustavo.catalog.service.ProductService;
+import com.gkcontas.catalog.dto.ProductRequest;
+import com.gkcontas.catalog.dto.ProductResponse;
+import com.gkcontas.catalog.dto.StockRequest;
+import com.gkcontas.catalog.service.ProductService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
-package com.gustavo.catalog.dto;
+package com.gkcontas.catalog.dto;
 
-import com.gustavo.catalog.model.Product;
+import com.gkcontas.catalog.model.Product;
 import java.math.BigDecimal;
 
 public record ProductResponse(

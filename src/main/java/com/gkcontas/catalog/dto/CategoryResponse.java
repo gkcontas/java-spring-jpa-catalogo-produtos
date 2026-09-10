@@ -1,6 +1,6 @@
-package com.gustavo.catalog.dto;
+package com.gkcontas.catalog.dto;
 
-import com.gustavo.catalog.model.Category;
+import com.gkcontas.catalog.model.Category;
 
 public record CategoryResponse(Long id, String name, String description) {
 

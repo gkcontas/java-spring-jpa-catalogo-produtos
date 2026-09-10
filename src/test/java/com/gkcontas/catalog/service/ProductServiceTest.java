@@ -1,17 +1,17 @@
-package com.gustavo.catalog.service;
+package com.gkcontas.catalog.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.gustavo.catalog.dto.ProductRequest;
-import com.gustavo.catalog.dto.StockRequest;
-import com.gustavo.catalog.exception.InsufficientStockException;
-import com.gustavo.catalog.exception.ResourceNotFoundException;
-import com.gustavo.catalog.model.Category;
-import com.gustavo.catalog.model.Product;
-import com.gustavo.catalog.repository.ProductRepository;
+import com.gkcontas.catalog.dto.ProductRequest;
+import com.gkcontas.catalog.dto.StockRequest;
+import com.gkcontas.catalog.exception.InsufficientStockException;
+import com.gkcontas.catalog.exception.ResourceNotFoundException;
+import com.gkcontas.catalog.model.Category;
+import com.gkcontas.catalog.model.Product;
+import com.gkcontas.catalog.repository.ProductRepository;
 import java.math.BigDecimal;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

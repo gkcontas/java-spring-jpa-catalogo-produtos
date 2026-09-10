@@ -1,6 +1,6 @@
-package com.gustavo.catalog.model;
+package com.gkcontas.catalog.model;
 
-import com.gustavo.catalog.exception.InsufficientStockException;
+import com.gkcontas.catalog.exception.InsufficientStockException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

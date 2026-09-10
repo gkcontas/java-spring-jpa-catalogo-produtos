@@ -1,4 +1,4 @@
-package com.gustavo.catalog.dto;
+package com.gkcontas.catalog.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;

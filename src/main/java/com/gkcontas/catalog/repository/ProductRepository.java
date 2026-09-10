@@ -1,6 +1,6 @@
-package com.gustavo.catalog.repository;
+package com.gkcontas.catalog.repository;
 
-import com.gustavo.catalog.model.Product;
+import com.gkcontas.catalog.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

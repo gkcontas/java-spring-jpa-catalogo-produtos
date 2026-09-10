@@ -1,4 +1,4 @@
-package com.gustavo.catalog.service;
+package com.gkcontas.catalog.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,10 +6,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.gustavo.catalog.dto.CategoryRequest;
-import com.gustavo.catalog.exception.ResourceNotFoundException;
-import com.gustavo.catalog.model.Category;
-import com.gustavo.catalog.repository.CategoryRepository;
+import com.gkcontas.catalog.dto.CategoryRequest;
+import com.gkcontas.catalog.exception.ResourceNotFoundException;
+import com.gkcontas.catalog.model.Category;
+import com.gkcontas.catalog.repository.CategoryRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
