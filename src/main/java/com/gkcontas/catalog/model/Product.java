@@ -12,9 +12,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "product")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product {
 
     @Id
@@ -39,10 +44,6 @@ public class Product {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-
-    protected Product() {
-        // JPA
-    }
 
     public Product(String name, String description, BigDecimal price, int stockQuantity, Category category) {
         this.name = name;
@@ -75,33 +76,5 @@ public class Product {
         this.description = description;
         this.price = price;
         this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
     }
 }
