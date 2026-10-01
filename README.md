@@ -33,7 +33,19 @@ API REST de catálogo de produtos (categorias, produtos, estoque) em Java com Sp
 ./mvnw test
 ```
 
-Os testes de integração usam Testcontainers e sobem um PostgreSQL real em container — é necessário ter Docker disponível.
+Os testes de integração usam Testcontainers e sobem um PostgreSQL real em container — é necessário ter Docker disponível. Suíte completa: **13 testes, todos passando** — 8 unitários e 5 de integração.
+
+### Nota sobre Testcontainers e Docker Engine recente
+
+Se os testes falharem com `client version 1.32 is too old. Minimum supported API version is 1.40`, a causa é o `docker-java` embutido no Testcontainers negociar a API 1.32, abaixo do mínimo aceito pelo Docker Engine 29+. Correção global, de uma linha:
+
+```bash
+echo 'api.version=1.44' > ~/.docker-java.properties
+```
+
+### Nota sobre o container nos testes
+
+`IntegrationTestBase` usa o padrão **singleton container** — iniciado num bloco `static` e nunca entregue à extensão `@Testcontainers` do JUnit. Aquela extensão amarra o ciclo de vida do container à **classe de teste**, parando-o ao fim da classe e subindo um novo, em outra porta, para a classe seguinte. O Spring, por sua vez, cacheia o contexto entre classes com a mesma configuração, então da segunda classe em diante o pool aponta para um container já destruído e os testes falham com *connection refused*. Iniciar uma vez por JVM alinha os dois ciclos de vida.
 
 ## Endpoints principais
 
