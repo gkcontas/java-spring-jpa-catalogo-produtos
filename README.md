@@ -1,91 +1,114 @@
 # Catálogo de Produtos
 
-API REST de catálogo de produtos (categorias, produtos, estoque) em Java com Spring Boot, Spring Data JPA/Hibernate e PostgreSQL, com migrations versionadas via Flyway e testes de integração com Testcontainers.
+API REST para gerenciar um catálogo de produtos organizado por categorias, com controle de estoque.
 
-## Status
+O projeto mostra como montar uma aplicação Spring Boot sobre um banco relacional de ponta a ponta: mapeamento JPA das entidades, validação dos dados de entrada, evolução do schema por migrations versionadas e testes de integração que rodam contra um PostgreSQL real.
 
-✅ MVP implementado — ver [PLANNING.md](PLANNING.md) para o planejamento original.
+## Tecnologias e bibliotecas
 
-## Stack
+| | |
+|---|---|
+| Linguagem | Java 17 |
+| Framework | Spring Boot 3.3 |
+| Persistência | Spring Data JPA / Hibernate, PostgreSQL 16 |
+| Migrations | Flyway |
+| Validação | Bean Validation (Hibernate Validator) |
+| Build | Maven (wrapper `mvnw`) |
+| Testes | JUnit 5, Mockito, Testcontainers |
+| Apoio | Lombok nas entidades |
 
-- Java 17 + Spring Boot 3.3
-- Spring Data JPA / Hibernate
-- PostgreSQL
-- Flyway (migrations)
-- Bean Validation
-- Testcontainers (testes de integração) + JUnit 5 + Mockito
+## Pré-requisitos
+
+- JDK 17 ou superior
+- Docker (para o banco e para os testes de integração)
 
 ## Como rodar
 
-1. Suba o PostgreSQL:
-   ```bash
-   docker compose up -d
-   ```
-2. Rode a aplicação:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-3. A API sobe em `http://localhost:8080`.
+```bash
+docker compose up -d
+```
 
-## Como rodar os testes
+```bash
+./mvnw spring-boot:run
+```
+
+A API fica disponível em `http://localhost:8080`. O Flyway cria o schema automaticamente na primeira subida.
+
+Para parar o banco ao terminar:
+
+```bash
+docker compose down
+```
+
+## Endpoints
+
+### Categorias
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/categories` | Lista todas as categorias |
+| `GET` | `/categories/{id}` | Busca uma categoria |
+| `POST` | `/categories` | Cria uma categoria |
+| `PUT` | `/categories/{id}` | Atualiza uma categoria |
+| `DELETE` | `/categories/{id}` | Remove uma categoria |
+
+### Produtos
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/products?categoryId=&page=&size=` | Lista paginada, com filtro opcional por categoria |
+| `GET` | `/products/{id}` | Busca um produto |
+| `POST` | `/products` | Cria um produto |
+| `PUT` | `/products/{id}` | Atualiza um produto |
+| `DELETE` | `/products/{id}` | Remove um produto |
+| `POST` | `/products/{id}/stock/increase` | Dá entrada em estoque |
+| `POST` | `/products/{id}/stock/decrease` | Dá baixa em estoque (422 se não houver saldo) |
+
+## Exemplos de uso
+
+```bash
+curl -s -X POST localhost:8080/categories \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Computing", "description": "Computing products"}'
+```
+
+```bash
+curl -s -X POST localhost:8080/products \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Mouse", "description": "Wireless mouse", "price": 99.90, "initialStockQuantity": 10, "categoryId": 1}'
+```
+
+```bash
+curl -s "localhost:8080/products?categoryId=1&page=0&size=10"
+```
+
+```bash
+curl -s -X POST localhost:8080/products/1/stock/increase \
+  -H "Content-Type: application/json" \
+  -d '{"quantity": 5}'
+```
+
+```bash
+curl -s -X POST localhost:8080/products/1/stock/decrease \
+  -H "Content-Type: application/json" \
+  -d '{"quantity": 3}'
+```
+
+## Testes
 
 ```bash
 ./mvnw test
 ```
 
-Os testes de integração usam Testcontainers e sobem um PostgreSQL real em container — é necessário ter Docker disponível. Suíte completa: **13 testes, todos passando** — 8 unitários e 5 de integração.
+13 testes: 8 unitários, que rodam sem dependência externa, e 5 de integração, que sobem um PostgreSQL em container pelo Testcontainers. Docker precisa estar disponível para a suíte completa.
 
-### Nota sobre Testcontainers e Docker Engine recente
+## Estrutura
 
-Se os testes falharem com `client version 1.32 is too old. Minimum supported API version is 1.40`, a causa é o `docker-java` embutido no Testcontainers negociar a API 1.32, abaixo do mínimo aceito pelo Docker Engine 29+. Correção global, de uma linha:
-
-```bash
-echo 'api.version=1.44' > ~/.docker-java.properties
 ```
+src/main/java/com/gkcontas/catalog
+├── category      entidade, repositório, serviço e controller de categorias
+├── product       entidade, repositório, serviço e controller de produtos
+└── common        tratamento de erros e DTOs compartilhados
 
-### Nota sobre o container nos testes
-
-`IntegrationTestBase` usa o padrão **singleton container** — iniciado num bloco `static` e nunca entregue à extensão `@Testcontainers` do JUnit. Aquela extensão amarra o ciclo de vida do container à **classe de teste**, parando-o ao fim da classe e subindo um novo, em outra porta, para a classe seguinte. O Spring, por sua vez, cacheia o contexto entre classes com a mesma configuração, então da segunda classe em diante o pool aponta para um container já destruído e os testes falham com *connection refused*. Iniciar uma vez por JVM alinha os dois ciclos de vida.
-
-## Endpoints principais
-
-### Categorias (`/categories`)
-
-| Método | Rota             | Descrição              |
-|--------|------------------|-------------------------|
-| GET    | `/categories`    | Lista todas as categorias |
-| GET    | `/categories/{id}`| Busca categoria por id |
-| POST   | `/categories`    | Cria categoria          |
-| PUT    | `/categories/{id}`| Atualiza categoria     |
-| DELETE | `/categories/{id}`| Remove categoria       |
-
-### Produtos (`/products`)
-
-| Método | Rota                          | Descrição                              |
-|--------|--------------------------------|-----------------------------------------|
-| GET    | `/products?categoryId=&page=&size=` | Lista produtos paginados, com filtro opcional por categoria |
-| GET    | `/products/{id}`              | Busca produto por id                    |
-| POST   | `/products`                   | Cria produto                            |
-| PUT    | `/products/{id}`              | Atualiza produto                        |
-| DELETE | `/products/{id}`              | Remove produto                          |
-| POST   | `/products/{id}/stock/increase`| Adiciona quantidade ao estoque         |
-| POST   | `/products/{id}/stock/decrease`| Remove quantidade do estoque (422 se insuficiente) |
-
-## Exemplo de uso
-
-```bash
-# Criar categoria
-curl -s -X POST localhost:8080/categories \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Computing", "description": "Computing products"}'
-
-# Criar produto (categoryId retornado acima)
-curl -s -X POST localhost:8080/products \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Mouse", "description": "Wireless mouse", "price": 99.90, "initialStockQuantity": 10, "categoryId": 1}'
-
-# Dar entrada em estoque
-curl -s -X POST localhost:8080/products/1/stock/increase \
-  -H "Content-Type: application/json" \
-  -d '{"quantity": 5}'
+src/main/resources/db/migration    migrations Flyway
 ```
